@@ -10,18 +10,18 @@ gamma = 0.1
 alpha = 0.1
 
 
-def create_rewardsmatrix_emptystates(g,w,f):
+def create_rewardsmatrix_emptystates(g1,g2,w,f):
     for i in range(16):
         for j in range(4):
-            if i == g or i == w or i == f:
+            if i == g1 or i == g2 or i == w or i == f:
                 rewards_matrix[i][j] = 0
 
 
-def create_rewardsmatrix_rewards(g,w,f):
+def create_rewardsmatrix_rewards(g1,g2,w,f):
     for i in range(16):
         for j in range(4):
             val = str(i) + '-' + str(j)
-            if dict[val] == g:
+            if dict[val] == g1 or dict[val] == g2:
                 rewards_matrix[i][j] = 100
             elif dict[val] == w:
                 rewards_matrix[i][j] = -0.1
@@ -44,7 +44,7 @@ def create_rewardsmatrix_livingstates():
                 rewards_matrix[i][j] = -0.1
 
 
-def calculate_QValue(start_state,next_state):
+def calculate_Individual_QValue(start_state,next_state):
 
     next_state_list = []
     val = str(start_state) + '-' + str(next_state)
@@ -96,7 +96,7 @@ def calculate_QValue(start_state,next_state):
 
 
 
-def calculateQvalues(g,w,f):
+def calculateQvalues(g1,g2,w,f):
 
     list=[]
     next_list = []
@@ -114,16 +114,23 @@ def calculateQvalues(g,w,f):
     print(next_state)
     val = str(start_state) + '-' + str(next_state)
     val_direct_dict = direct_dict[val]
-    q_value = calculate_QValue(start_state,next_state)
+    q_value = calculate_Individual_QValue(start_state,next_state)
     Qvalue_matrix[start_state][val_direct_dict] = q_value
     print("printing the coordinates of the q value matrix")
     print(start_state)
     print(val_direct_dict)
 
     print("The Q Value of the transition from start to next state")
+    print("The two goal states and the next_state are")
+    print(g1)
+    print(g2)
+    print(next_state)
     print(q_value)
 
-    while True:
+    if next_state != g1 and next_state != g2:
+        count = 0
+        while
+            print("Coming inside the while statement")
             next_state_str  = str(next_state) + '-'
             #print(next_state_str)
             next_not_state =  str(1) + str(next_state) + '-'
@@ -137,16 +144,18 @@ def calculateQvalues(g,w,f):
             next_state = random.choice(list)
             print("printing next state")
             print(next_state)
-            if next_state == g:
+            if next_state == g1 or next_state == g2:
                 break
             list.clear()
+            count = count + 1
             #print("printing after clearing list")
             #print(list)
 
 
 
 def main():
-    goal_number = int(input("Enter the Goal Number"))
+    goal_number_one = int(input("Enter the first Goal Number"))
+    goal_number_two = int(input("Enter the second Goal Number"))
     wall_number = int(input("Enter the cell number of the wall"))
     forbidden_number = int(input("Enter the forbidden cell's number"))
     variable_name = input("Enter p or q")
@@ -154,17 +163,19 @@ def main():
     if variable_name == 'q':
        cell_number = int(input("Enter the cell number for which the q values must be found"))
 
-    g = goal_number - 1
+    g1 = goal_number_one - 1
+    g2 = goal_number_two - 1
+
     w = wall_number - 1
     f = forbidden_number - 1
-    create_rewardsmatrix_emptystates(g,w,f)
-    create_rewardsmatrix_rewards(g,w,f)
+    create_rewardsmatrix_emptystates(g1,g2,w,f)
+    create_rewardsmatrix_rewards(g1,g2,w,f)
     create_rewardsmatrix_invalidstates()
     create_rewardsmatrix_livingstates()
     #print("printing the matrix indexes for testing")
-    #print(rewards_matrix)
+    print(rewards_matrix)
     print("printing the Q Value Matrix")
-    calculateQvalues(g,w,f)
+    calculateQvalues(g1,g2,w,f)
     print(Qvalue_matrix)
 
 
