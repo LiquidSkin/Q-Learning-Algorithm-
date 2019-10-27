@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c9ba01b9-7e9a-4609-a703-9fb79e264adc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dictionary.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dictionary.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hw3.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +17,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dictionary.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state>
+              <caret column="7" lean-forward="true" selection-start-column="7" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -25,8 +26,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hw3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="149" column="12" selection-start-line="149" selection-start-column="12" selection-end-line="149" selection-end-column="12" />
+            <state relative-caret-position="354">
+              <caret line="225" column="20" selection-start-line="225" selection-start-column="20" selection-end-line="225" selection-end-column="20" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -42,6 +43,22 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>printing the Q Value Matrix</find>
+      <find>he current and next states are</find>
+      <find>printing reward value of the transition</find>
+      <find>printing rewards matrix values</find>
+      <find>printing q value matrix of transition direction</find>
+      <find>printing the direction of the transition</find>
+      <find>Coming inside the while statement</find>
+      <find>the max value is</find>
+      <find>printing next state from start</find>
+      <find>the current and next states are</find>
+      <find>reached the goal at the very next step</find>
+      <find>reached the goal</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -208,15 +225,15 @@
     <entry file="file://$PROJECT_DIR$/Pancake.py" />
     <entry file="file://$PROJECT_DIR$/Dictionary.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        <state>
+          <caret column="7" lean-forward="true" selection-start-column="7" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hw3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="149" column="12" selection-start-line="149" selection-start-column="12" selection-end-line="149" selection-end-column="12" />
+        <state relative-caret-position="354">
+          <caret line="225" column="20" selection-start-line="225" selection-start-column="20" selection-end-line="225" selection-end-column="20" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
