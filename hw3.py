@@ -10,6 +10,8 @@ gamma = 0.1
 alpha = 0.1
 flag = None
 route_path = []
+first_goal_path = []
+second_goal_path = []
 
 def create_rewardsmatrix_emptystates(g1,g2,w,f):
     for i in range(16):
@@ -96,7 +98,7 @@ def calculate_Individual_QValue(start_state,next_state):
 
 
 def calculate_individual_qvalues(g1,g2,w,f):
-    for i in range(100):
+    for i in range(10000):
      print("printing the value of i")
      print(i)
      list=[]
@@ -204,16 +206,70 @@ def getQValues(cell_no):
                 print("Going Right(->)" + " " + str(Qvalue_matrix[cell_no][j]))
 
 
-def get_best_path_one(start_state,g1):
+def get_best_path_one(start_state,g1,w):
+    first_goal_path.append(start_state)
+    print("Printing the goal state inside the function")
+    print(g1)
     best_path = []
     best_path.append(start_state)
     max = -10000
     nextval = None
-    for i in range(16):
+    for i in range(1,2):
         for j in range(4):
             if(i == 1):
                 value = Qvalue_matrix[1][j]
-                if value > max:
+                if value > max and j != 1 and dict[str(1) + '-' + str(j)] != w:
+                    max = value
+                    nextval = j
+
+    best_path_val = dict[str(start_state) + '-' + str(nextval)]
+    best_path.append(best_path_val)
+    first_goal_path.append(best_path_val)
+    route_path.append(str(start_state) + '-' + str(nextval))
+    route_path.append(nextval)
+    print("printing the route part")
+    print(route_path)
+    print(best_path)
+    max = -1000000000
+    count = 0
+    path_trace= []
+    while True:
+        print("coming inside path tracer")
+        for i in range(best_path_val,best_path_val+1):
+            for j in range(4):
+                if i == best_path_val:
+                    value = Qvalue_matrix[best_path_val][j]
+                    if value > max and dict[str(best_path_val) + '-' + str(j)] != -1 and dict[str(best_path_val) + '-' + str(j)] not in path_trace and dict[str(best_path_val) + '-' + str(j)] != w:
+                        max = value
+                        nextval = j
+                        print("the direction to go is")
+                        print(nextval)
+
+        print("printing the best path value and the next value")
+        print(best_path_val)
+        if best_path_val == g1:
+            break
+        path_trace.append(best_path_val)
+        print(nextval)
+        best_val = dict[str(best_path_val) + '-' + str(nextval)]
+        print("The next state from previous state is")
+        print(best_val)
+        first_goal_path.append(best_val)
+        best_path_val = best_val
+        max = -100000
+
+def get_best_path_two(start_state,g2,w):
+    print("Printing the second goal state inside the function")
+    print(g2)
+    best_path = []
+    best_path.append(start_state)
+    max = -10000
+    nextval = None
+    for i in range(1,2):
+        for j in range(4):
+            if(i == 1):
+                value = Qvalue_matrix[1][j]
+                if value > max and j != 1:
                     max = value
                     nextval = j
 
@@ -224,6 +280,35 @@ def get_best_path_one(start_state,g1):
     print("printing the route part")
     print(route_path)
     print(best_path)
+    max = -1000000000
+    count = 0
+    path_trace= []
+    while True:
+        print("coming inside path tracer")
+        for i in range(best_path_val,best_path_val+1):
+            for j in range(4):
+                if i == best_path_val:
+                    value = Qvalue_matrix[best_path_val][j]
+                    if value > max and dict[str(best_path_val) + '-' + str(j)] != -1 and dict[str(best_path_val) + '-' + str(j)] not in path_trace and  dict[str(best_path_val) + '-' + str(j)] != w:
+                        max = value
+                        nextval = j
+                        print("the direction to go is")
+                        print(nextval)
+
+        print("printing the best path value and the next value")
+        print(best_path_val)
+        if best_path_val == g2:
+            break
+        path_trace.append(best_path_val)
+        print(nextval)
+        best_val = dict[str(best_path_val) + '-' + str(nextval)]
+        print("The next state from previous state is")
+        print(best_val)
+        best_path_val = best_val
+        max = -100000
+        count = count + 1
+
+
 
 
 
@@ -259,7 +344,9 @@ def main():
         getQValues(cell_number)
     if variable_name == 'p':
         print("Printing the best path from the start to the goal states")
-        get_best_path_one(start_state,g1)
+        get_best_path_one(start_state,g1,w)
+        print(first_goal_path)
+        #get_best_path_two(start_state,g2,w)
 
 
 
