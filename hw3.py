@@ -68,6 +68,9 @@ def create_rewardsmatrix_livingstates():
                 rewards_matrix[i][j] = -0.1
 
 
+
+
+
 def calculate_Individual_QValue(start_state, next_state):
     next_state_list = []
     val = str(start_state) + '-' + str(next_state)
@@ -115,9 +118,35 @@ def calculate_Individual_QValue(start_state, next_state):
     print(q_val)
     return q_val
 
+def check_Qvalues(start_state,list):
+    for item in list:
+        q_value = calculate_Individual_QValue(start_state,item)
+        val = str(start_state) + '-' + str(item)
+        val_direct_dict = direct_dict[val]
+        if abs(q_value - Qvalue_matrix[start_state][val_direct_dict]) > 0.02:
+            return False
+
+    return True
+
+
+def get_next_state(start_state,list):
+    max = -100000
+    next_state = None
+    for item in list:
+        q_value = calculate_Individual_QValue(start_state,item)
+        if q_value > max:
+            max = q_value
+            next_state = item
+
+    return item
+
+
+
 
 def calculate_individual_qvalues(g1, g2, w, f):
+    convergence_count = 0
     for i in range(1000):
+        next_state = None
         print("printing the value of i")
         print(i)
         list = []
@@ -134,9 +163,27 @@ def calculate_individual_qvalues(g1, g2, w, f):
             list.remove(w)
         print("printing the start state")
         print(start_state)
-        next_state = random.choice(list)
-        if next_state == f:
-            continue
+        print('keep track of the next state value')
+        print(i)
+        flag = check_Qvalues(start_state,list)
+        if flag == False:
+            print("coming here and checking inside false condition")
+            next_state = random.choice(list)
+            print("the random choice next_state is")
+            print(next_state)
+            if next_state == f:
+                continue
+        elif flag == True:
+            print("convergence count incremented")
+            convergence_count = convergence_count + 1
+
+        if convergence_count > 0:
+            print("following policy after checking QValues")
+            next_state = get_next_state(start_state,list)
+            print("the maximum next_state is")
+            print(next_state)
+            if next_state == f:
+                continue
 
         print("printing next state from start")
         print(next_state)
