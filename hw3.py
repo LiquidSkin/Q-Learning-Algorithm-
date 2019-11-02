@@ -74,15 +74,15 @@ def create_rewardsmatrix_livingstates():
 def calculate_Individual_QValue(start_state, next_state):
     next_state_list = []
     val = str(start_state) + '-' + str(next_state)
-    print(val)
+    #print(val)
     key_val = direct_dict[val]
-    print("printing the direction of the transition")
-    print(key_val)
-    print("printing q value matrix of transition direction")
-    print(Qvalue_matrix[start_state][key_val])
+    #print("printing the direction of the transition")
+    #print(key_val)
+    #print("printing q value matrix of transition direction")
+    #print(Qvalue_matrix[start_state][key_val])
     qvalue_transition = Qvalue_matrix[start_state][key_val]
-    print("printing reward value of the transition")
-    print(rewards_matrix[start_state][key_val])
+    #print("printing reward value of the transition")
+    #print(rewards_matrix[start_state][key_val])
     q_val = (1 - alpha) * (qvalue_transition)
     next_val = str(next_state) + '-'
     next_not_val = str(1) + str(next_state) + '-'
@@ -90,32 +90,32 @@ def calculate_Individual_QValue(start_state, next_state):
         if next_val in key and next_not_val not in key and dict[key] != -1:
             next_state_list.append(dict[key])
 
-    print("printing next state in the second function")
-    print(next_state)
+    #print("printing next state in the second function")
+    #print(next_state)
 
     max = -100000
     for item in next_state_list:
-        print("printing next next states")
+        #print("printing next next states")
         val = str(next_state) + '-' + str(item)
-        print(val)
+        #print(val)
         qvalue_direction = direct_dict[val]
-        print(qvalue_direction)
+        #print(qvalue_direction)
         qvalue_matrix = Qvalue_matrix[next_state][qvalue_direction]
         if qvalue_matrix > max:
             max = qvalue_matrix
 
-    print("the max value is")
-    print(max)
-    print("printing rewards matrix values")
-    print(rewards_matrix[start_state][key_val])
+    #print("the max value is")
+    #print(max)
+    #print("printing rewards matrix values")
+    #print(rewards_matrix[start_state][key_val])
     reward_transition = rewards_matrix[start_state][key_val]
-    print(reward_transition)
+    #print(reward_transition)
     q_val_sub = alpha * (reward_transition + (gamma * max))
-    print("the second part of the q value equation")
-    print(q_val_sub)
+    #print("the second part of the q value equation")
+    #print(q_val_sub)
     q_val = round(q_val + q_val_sub, 2)
-    print("printing the Q Value of the state after transition")
-    print(q_val)
+    #print("printing the Q Value of the state after transition")
+    #print(q_val)
     return q_val
 
 def check_Qvalues(start_state,list):
@@ -142,13 +142,27 @@ def get_next_state(start_state,list):
 
 
 
+def get_next_state_two(start_state,list,state_list):
+    max = -100000
+    next_state = None
+    for item in list:
+        q_value = calculate_Individual_QValue(start_state,item)
+        if q_value > max and item not in state_list:
+            max = q_value
+            next_state = item
+
+    return item
+
+
+
 
 def calculate_individual_qvalues(g1, g2, w, f):
     convergence_count = 0
+    conv_count = 0
     for i in range(1000):
         next_state = None
-        print("printing the value of i")
-        print(i)
+        #print("printing the value of i")
+        #print(i)
         list = []
         next_list = []
         start_new = str(start_state) + '-'
@@ -158,57 +172,57 @@ def calculate_individual_qvalues(g1, g2, w, f):
                 if dict[key] != -1:
                     list.append(dict[key])
 
-        print(list)
+        #print(list)
         if w in list:
             list.remove(w)
-        print("printing the start state")
-        print(start_state)
-        print('keep track of the next state value')
-        print(i)
+        #print("printing the start state")
+        #print(start_state)
+        #print('keep track of the next state value')
+        #print(i)
         flag = check_Qvalues(start_state,list)
         if flag == False:
-            print("coming here and checking inside false condition")
+            #print("coming here and checking inside false condition")
             next_state = random.choice(list)
-            print("the random choice next_state is")
-            print(next_state)
+            #print("the random choice next_state is")
+            #print(next_state)
             if next_state == f:
                 continue
         elif flag == True:
-            print("convergence count incremented")
+            #print("convergence count incremented")
             convergence_count = convergence_count + 1
 
         if convergence_count > 0:
-            print("following policy after checking QValues")
+            #print("following policy after checking QValues")
             next_state = get_next_state(start_state,list)
-            print("the maximum next_state is")
-            print(next_state)
+            #print("the maximum next_state is")
+            #print(next_state)
             if next_state == f:
                 continue
 
-        print("printing next state from start")
-        print(next_state)
+        #print("printing next state from start")
+        #print(next_state)
         # Get the Direction of Transition from the start state to next state from the direction matrix.
         val = str(start_state) + '-' + str(next_state)
         val_direct_dict = direct_dict[val]
         # Calculate the Q Value of the transition from the start state to the next state
         q_value = calculate_Individual_QValue(start_state, next_state)
         Qvalue_matrix[start_state][val_direct_dict] = q_value
-        print("printing the coordinates of the q value matrix")
-        print(start_state)
-        print(val_direct_dict)
-        print("The Q Value of the transition from start to next state")
-        print("The two goal states and the next_state are")
-        print(next_state)
-        print(q_value)
+        #print("printing the coordinates of the q value matrix")
+        #print(start_state)
+        #print(val_direct_dict)
+        #print("The Q Value of the transition from start to next state")
+        #print("The two goal states and the next_state are")
+        #print(next_state)
+        #print(q_value)
         # Terminate if the immediate next state is either of the two goals.
         if next_state != g1 and next_state != g2:
             while True:
-                print("Coming inside the while statement")
-                print("printing the next state inside the while loop")
-                print(next_state)
+                #print("Coming inside the while statement")
+                #print("printing the next state inside the while loop")
+                #print(next_state)
                 # Added an extra check to see whether the next state
                 if next_state == g1 or next_state == g2:
-                    print("reached the goal at the very next step" + " " + str(next_state))
+                    #print("reached the goal at the very next step" + " " + str(next_state))
                     break
 
                 next_state_str = str(next_state) + '-'
@@ -221,30 +235,27 @@ def calculate_individual_qvalues(g1, g2, w, f):
                     if next_state_str in key and next_not_state not in key and dict[key] != -1:
                         list.append(dict[key])
 
-                print(list)
+                #print(list)
                 if w in list:
                     list.remove(w)
 
-                # Choose a random next transition
                 next_next_state = random.choice(list)
-                print("printing next next state")
-                print(next_next_state)
-                print(i)
-                print("the current and next states are")
-                print(next_state)
-                print(next_next_state)
+                #print("The maximum next state after convergence is")
+                #print("the current and next states are")
+                #print(next_state)
+                #print(next_next_state)
                 if next_next_state == f:
                     continue
 
                 if next_next_state == g1 or next_state == g2:
-                    print("reached the goal" + " " + str(next_next_state))
+                   # print("reached the goal" + " " + str(next_next_state))
                     break
 
                 val = str(next_state) + '-' + str(next_next_state)
-                print(val)
+                #print(val)
                 val_direct_dict = direct_dict[val]
-                print("The direction of the transition to the next state")
-                print(val_direct_dict)
+                #print("The direction of the transition to the next state")
+                #print(val_direct_dict)
 
                 # Calculate the Q Value of the transition from the next state which is assigned as current state and the next state of the next state
                 q_val = calculate_Individual_QValue(next_state, next_next_state)
@@ -452,10 +463,8 @@ def optimal_path_state(g1, g2, w, f):
     no_of_rows = len(Qvalue_matrix)
     no_of_columns = len(Qvalue_matrix[0])
     for i in range(no_of_rows):
-        if i != g1 and i != g2 and i != w and i != f:
             max = -10000
             max_index = -10
-
             for j in range(no_of_columns):
                 if Qvalue_matrix[i][j] > max and dict[str(i) + '-' + str(j)] != -1:
                     max = Qvalue_matrix[i][j]
@@ -506,7 +515,7 @@ def main():
     create_rewardsmatrix_invalidstates()
     create_rewardsmatrix_livingstates()
     # print("printing the matrix indexes for testing")
-    print(rewards_matrix)
+    #print(rewards_matrix)
     # Calculate Q Values from the given inputs
     calculate_individual_qvalues(g1, g2, w, f)
     print(Qvalue_matrix)
